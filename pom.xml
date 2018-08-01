@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.fujion.webjars</groupId>
+		<artifactId>fujion-webjars</artifactId>
+		<version>2.1.0</version>
+	</parent>
+
+	<name>SystemJS CSS Plugin</name>
+	<artifactId>fujion-systemjs-plugin-css</artifactId>
+	<version>0.1.37-SNAPSHOT</version>
+	<description>SystemJS CSS plugin.</description>
+
+	<properties>
+		<src.url>https://github.com/systemjs/plugin-css/archive/${src.version}.zip</src.url>
+		<src.top>plugin-css-${src.version}</src.top>
+		<systemjs>
+			{
+				"map": {
+					"systemjs-plugin-css": "css"
+				},
+				"meta": {
+					"*.css": { "loader": "systemjs-plugin-css" }
+				}
+			}			
+		</systemjs>
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>precompile</id>
+						<configuration>
+							<target>
+								<get src="${src.url}" dest="${src.zipdir}/src.zip"/>
+								<unzip src="${src.zipdir}/src.zip" dest="${src.tmpdir}" />
+								<move todir="${webjar.target}">
+									<fileset dir="${src.rootdir}" includes="css.js,LICENSE"/>
+								</move>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.samaxes.maven</groupId>
+				<artifactId>minify-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
