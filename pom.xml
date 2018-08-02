@@ -9,7 +9,7 @@
 
 	<name>SystemJS CSS Plugin</name>
 	<artifactId>webjar-systemjs-plugin-css</artifactId>
-	<version>0.1.37</version>
+	<version>0.1.37-1-SNAPSHOT</version>
 	<description>SystemJS CSS plugin.</description>
 
 	<properties>
@@ -52,8 +52,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-  <scm>
-    <tag>0.1.37</tag>
-  </scm>
 </project>
