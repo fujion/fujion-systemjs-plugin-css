@@ -9,7 +9,7 @@
 
 	<name>SystemJS CSS Plugin</name>
 	<artifactId>webjar-systemjs-plugin-css</artifactId>
-	<version>0.1.37-SNAPSHOT</version>
+	<version>0.1.37</version>
 	<description>SystemJS CSS plugin.</description>
 
 	<properties>
@@ -36,10 +36,10 @@
 						<id>precompile</id>
 						<configuration>
 							<target>
-								<get src="${src.url}" dest="${src.zipdir}/src.zip"/>
+								<get src="${src.url}" dest="${src.zipdir}/src.zip" />
 								<unzip src="${src.zipdir}/src.zip" dest="${src.tmpdir}" />
 								<move todir="${webjar.target}">
-									<fileset dir="${src.rootdir}" includes="css.js,LICENSE"/>
+									<fileset dir="${src.rootdir}" includes="css.js,LICENSE" />
 								</move>
 							</target>
 						</configuration>
@@ -52,4 +52,8 @@
 			</plugin>
 		</plugins>
 	</build>
+
+  <scm>
+    <tag>0.1.37</tag>
+  </scm>
 </project>
