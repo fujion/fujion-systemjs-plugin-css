@@ -1,0 +1,10 @@
+{
+  "map": {
+    "systemjs-plugin-css": "dist/css.js"
+  },
+  "meta": {
+    "*.css": {
+      "loader": "systemjs-plugin-css"
+    }
+  }
+}

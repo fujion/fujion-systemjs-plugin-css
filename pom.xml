@@ -14,22 +14,19 @@
 
 	<properties>
 		<skip.minification>false</skip.minification>
-		<src.url>https://github.com/systemjs/plugin-css/archive/${src.version}.zip</src.url>
-		<src.top>plugin-css-${src.version}</src.top>
-		<systemjs>
-			{
-				"map": {
-					"systemjs-plugin-css": "css"
-				},
-				"meta": {
-					"*.css": { "loader": "systemjs-plugin-css" }
-				}
-			}			
-		</systemjs>
 	</properties>
-	
+
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>npm-install</id>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
@@ -37,11 +34,24 @@
 						<id>precompile</id>
 						<configuration>
 							<target>
-								<get src="${src.url}" dest="${src.zipdir}/src.zip" />
-								<unzip src="${src.zipdir}/src.zip" dest="${src.tmpdir}" />
-								<move todir="${webjar.target}">
-									<fileset dir="${src.rootdir}" includes="css.js,LICENSE" />
-								</move>
+								<copy tofile="${src.rootdir}/package.json" file="${basedir}/package-template.json">
+									<filterchain>
+										<expandproperties />
+									</filterchain>
+								</copy>
+							</target>
+						</configuration>
+					</execution>
+					<execution>
+						<id>postcompile</id>
+						<configuration>
+							<target>
+								<copy todir="${webjar.target}">
+									<fileset dir="${src.rootdir}/node_modules/systemjs-plugin-css" includes="LICENSE,README.md" />
+								</copy>
+								<copy todir="${webjar.target}/dist">
+									<fileset dir="${src.rootdir}/node_modules/systemjs-plugin-css" includes="css.js" />
+								</copy>
 							</target>
 						</configuration>
 					</execution>
